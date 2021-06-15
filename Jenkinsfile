@@ -1,12 +1,18 @@
 pipeline {
 //None parameter in the agent section means that no global agent will be allocated for the entire Pipeline’s
 //execution and that each stage directive must specify its own agent section.
-    agent none
+    agent
+    {
+        docker {
+            label 'docker'
+        }
+    }
+    
     stages {
         stage('Build') {
             agent {
                 docker {
-                    label 'docker'
+                    //label 'docker'
                     //args '-v /var/jenkins/caches:/var/jenkins/caches'
                     //This image parameter (of the agent section’s docker parameter) downloads the python:2-alpine
                     //Docker image and runs this image as a separate container. The Python container becomes
