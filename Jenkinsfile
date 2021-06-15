@@ -50,7 +50,12 @@ pipeline {
             }
         }
         stage('Deliver') {
-                    agent any
+                    docker {
+                        //This image parameter downloads the qnib:pytest Docker image and runs this image as a
+                        //separate container. The pytest container becomes the agent that Jenkins uses to run the Test
+                        //stage of your Pipeline project.
+                        label 'docker'
+                    }
                     //This environment block defines two variables which will be used later in the 'Deliver' stage.
                     environment {
                         VOLUME = '$(pwd)/sources:/src'
