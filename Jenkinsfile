@@ -1,19 +1,13 @@
 pipeline {
 //None parameter in the agent section means that no global agent will be allocated for the entire Pipeline’s
 //execution and that each stage directive must specify its own agent section.
-    agent
-    {
-        docker {
-            label 'docker'
-        }
-    }
-    
+    agent any
     stages {
         stage('Build') {
             agent {
                 docker {
                     //label 'docker'
-                    //args '-v /var/jenkins/caches:/var/jenkins/caches'
+                    args '-v /var/jenkins/caches:/var/jenkins/caches'
                     //This image parameter (of the agent section’s docker parameter) downloads the python:2-alpine
                     //Docker image and runs this image as a separate container. The Python container becomes
                     //the agent that Jenkins uses to run the Build stage of your Pipeline project.
@@ -32,6 +26,7 @@ pipeline {
         stage('Test') {
             agent {
                 docker {
+                    args '-v /var/jenkins/caches:/var/jenkins/caches'
                     //This image parameter downloads the qnib:pytest Docker image and runs this image as a
                     //separate container. The pytest container becomes the agent that Jenkins uses to run the Test
                     //stage of your Pipeline project.
@@ -59,7 +54,7 @@ pipeline {
                     agent any
                     //This environment block defines two variables which will be used later in the 'Deliver' stage.
                     environment {
-                        VOLUME = '$(pwd)/sources:/src'
+                        VOLUME = '/var/jenkins/caches:/src'
                         IMAGE = 'cdrx/pyinstaller-linux:python2'
                     }
                     steps {
