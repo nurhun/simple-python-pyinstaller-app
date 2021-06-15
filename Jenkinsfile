@@ -59,6 +59,7 @@ pipeline {
                             //stage of your Pipeline project.
                             image 'cdrx/pyinstaller-linux:python2'
                         }
+                    }
                     //This environment block defines two variables which will be used later in the 'Deliver' stage.
                     steps {
                         //This dir step creates a new subdirectory named by the build number.
