@@ -51,12 +51,15 @@ pipeline {
             }
         }
         stage('Deliver') {
-                    agent any
+                    agent {
+                        docker {
+                            args '-v /var/jenkins/caches:/var/jenkins/caches'
+                            //This image parameter downloads the qnib:pytest Docker image and runs this image as a
+                            //separate container. The pytest container becomes the agent that Jenkins uses to run the Test
+                            //stage of your Pipeline project.
+                            image 'cdrx/pyinstaller-linux:python2'
+                        }
                     //This environment block defines two variables which will be used later in the 'Deliver' stage.
-                    environment {
-                        VOLUME = '$pwd:/src'
-                        IMAGE = 'cdrx/pyinstaller-linux:python2'
-                    }
                     steps {
                         //This dir step creates a new subdirectory named by the build number.
                         //The final program will be created in that directory by pyinstaller.
@@ -70,7 +73,7 @@ pipeline {
                             //This sh step executes the pyinstaller command (in the PyInstaller container) on your simple Python application.
                             //This bundles your add2vals.py Python application into a single standalone executable file
                             //and outputs this file to the dist workspace directory (within the Jenkins home directory).
-                            sh "docker run --rm -v ${VOLUME} ${IMAGE} 'pyinstaller -F add2vals.py'"
+                            sh "docker run --rm -v $pwd:/src ${IMAGE} 'pyinstaller -F add2vals.py'"
                         }
                     }
                     post {
