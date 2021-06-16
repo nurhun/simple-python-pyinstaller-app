@@ -75,7 +75,7 @@ pipeline {
                         //This unstash step restores the Python source code and compiled byte
                         //code files (with .pyc extension) from the previously saved stash. image]
                         //and runs this image as a separate container.
-                        dir(path: env.BUILD_ID) {
+                        //dir(path: env.BUILD_ID) {
                             unstash(name: 'compiled-results')
 
                             //This sh step executes the pyinstaller command (in the PyInstaller container) on your simple Python application.
