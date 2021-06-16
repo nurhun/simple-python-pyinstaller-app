@@ -72,7 +72,7 @@ pipeline {
                             //This sh step executes the pyinstaller command (in the PyInstaller container) on your simple Python application.
                             //This bundles your add2vals.py Python application into a single standalone executable file
                             //and outputs this file to the dist workspace directory (within the Jenkins home directory).
-                            sh "docker run --rm -v /var/jenkins/caches:/src cdrx/pyinstaller-linux:python2 'pyinstaller -F add2vals.py'"
+                            sh "docker run --rm -v /var/jenkins/caches:/src -v /var/run/docker.sock:/var/run/docker.sock -v ${which docker}:${which docker} cdrx/pyinstaller-linux:python2 'pyinstaller -F add2vals.py'"
                         }
                     }
                     post {
@@ -80,7 +80,7 @@ pipeline {
                             //This archiveArtifacts step archives the standalone executable file and exposes this file
                             //through the Jenkins interface.
                             archiveArtifacts "${env.BUILD_ID}/sources/dist/add2vals"
-                            sh "docker run --rm  -v /var/run/docker.sock:/var/run/docker.sock -v $(which docker):$(which docker) ${IMAGE} 'rm -rf build dist'"
+                            sh "docker run --rm  -v /var/run/docker.sock:/var/run/docker.sock -v ${which docker}:${which docker} ${IMAGE} 'rm -rf build dist'"
                         }
                     }
         }
