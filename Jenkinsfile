@@ -60,12 +60,13 @@ pipeline {
                             args '--privileged'
                             image 'nurhun/my_custom_jenkins_inboud_agent:v0.8'
                         }
+                    }
                     //This environment block defines two variables which will be used later in the 'Deliver' stage.
                     environment {
                         //VOLUME = '$(pwd)/sources:/src'
                         IMAGE = 'cdrx/pyinstaller-linux:python2'
                     }
-                    }
+            
                     //This environment block defines two variables which will be used later in the 'Deliver' stage.
                     steps {
                         //This dir step creates a new subdirectory named by the build number.
