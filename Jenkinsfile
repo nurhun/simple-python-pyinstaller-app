@@ -79,7 +79,7 @@ pipeline {
                             unstash(name: 'compiled-results')
                             sh "ls sources/"
                             sh "ls \$(pwd)/sources"
-                            sh "ls \${pwd}"
+                            sh "ls \${pwd}/sources"
 
                             //This sh step executes the pyinstaller command (in the PyInstaller container) on your simple Python application.
                             //This bundles your add2vals.py Python application into a single standalone executable file
