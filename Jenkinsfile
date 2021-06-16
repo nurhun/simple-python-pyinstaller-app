@@ -55,8 +55,8 @@ pipeline {
                         docker {
                             label 'docker'
                             args '-v $HOME:/var/jenkins/caches'
-                            VOLUME /var/run/docker.sock:/var/run/docker.sock
-                            VOLUME $(which docker):$(which docker)
+                            VOLUME '/var/run/docker.sock:/var/run/docker.sock'
+                            VOLUME '$(which docker):$(which docker)'
                             image 'nurhun/my_custom_jenkins_inboud_agent:v0.7'
                         }
                     }
