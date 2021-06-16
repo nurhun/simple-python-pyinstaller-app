@@ -57,6 +57,7 @@ pipeline {
                             args '-v $HOME:/var/jenkins/caches'
                             args '-v /var/run/docker.sock:/var/run/docker.sock'
                             //args '-v "$(which docker)":"$(which docker)"'
+                            args '--privileged'
                             image 'nurhun/my_custom_jenkins_inboud_agent:v0.7'
                         }
                     }
