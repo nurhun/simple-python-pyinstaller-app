@@ -63,7 +63,7 @@ pipeline {
                     }
                     //This environment block defines two variables which will be used later in the 'Deliver' stage.
                     environment {
-                        VOLUME = '$(pwd)/sources:/src'
+                        VOLUME = '${pwd}/sources:/src'
                         IMAGE = 'cdrx/pyinstaller-linux:python2'
                     }
             
@@ -80,12 +80,12 @@ pipeline {
                             sh "ls sources/"
                             sh "ls \$(pwd)/sources"
                             sh "ls \${pwd}/sources"
-
+                            sh "ls \${pwd}"
                             //This sh step executes the pyinstaller command (in the PyInstaller container) on your simple Python application.
                             //This bundles your add2vals.py Python application into a single standalone executable file
                             //and outputs this file to the dist workspace directory (within the Jenkins home directory).
                             //sh "docker run --rm -v $(pwd)/sources:/src ${IMAGE} 'pyinstaller -F add2vals.py'"
-                            //sh "docker run --rm -v ${VOLUME} -v /var/run/docker.sock:/var/run/docker.sock ${IMAGE} 'pyinstaller -F add2vals.py'"
+                            sh "docker run --rm -v ${VOLUME} -v /var/run/docker.sock:/var/run/docker.sock ${IMAGE} 'pyinstaller -F add2vals.py'"
                         //}
                     }
                     post {
