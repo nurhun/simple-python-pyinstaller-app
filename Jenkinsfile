@@ -75,7 +75,7 @@ pipeline {
                         //This unstash step restores the Python source code and compiled byte
                         //code files (with .pyc extension) from the previously saved stash. image]
                         //and runs this image as a separate container.
-                        //dir(path: env.BUILD_ID) {
+                        dir(path: env.BUILD_ID) {
                             unstash(name: 'compiled-results')
                             //sh "ls sources/"
                             //sh "ls \$(pwd)/sources"
@@ -87,7 +87,7 @@ pipeline {
                             //and outputs this file to the dist workspace directory (within the Jenkins home directory).
                             //sh "docker run --rm -v $(pwd)/sources:/src ${IMAGE} 'pyinstaller -F add2vals.py'"
                             sh "docker run --rm -v ${VOLUME} -v /var/run/docker.sock:/var/run/docker.sock ${IMAGE} 'pyinstaller -F --onefile add2vals'"
-                        //}
+                        }
                     }
                     post {
                         success {
