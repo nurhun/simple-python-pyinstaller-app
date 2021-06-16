@@ -7,7 +7,7 @@ pipeline {
             agent {
                 docker {
                     label 'docker'
-                    args '-v $HOME:/var/jenkins/caches'
+                    //args '-v $HOME:/var/jenkins/caches'
                     //This image parameter (of the agent section’s docker parameter) downloads the python:2-alpine
                     //Docker image and runs this image as a separate container. The Python container becomes
                     //the agent that Jenkins uses to run the Build stage of your Pipeline project.
@@ -26,7 +26,7 @@ pipeline {
         stage('Test') {
             agent {
                 docker {
-                    args '-v $HOME:/var/jenkins/caches'
+                    //args '-v $HOME:/var/jenkins/caches'
                     //This image parameter downloads the qnib:pytest Docker image and runs this image as a
                     //separate container. The pytest container becomes the agent that Jenkins uses to run the Test
                     //stage of your Pipeline project.
@@ -54,16 +54,16 @@ pipeline {
                     agent {
                         docker {
                             label 'docker'
-                            args '-v $HOME:/var/jenkins/caches'
+                            //args '-v $HOME:/var/jenkins/caches'
                             args '-v /var/run/docker.sock:/var/run/docker.sock'
                             //args '-v "$(which docker)":"$(which docker)"'
-                            args '--privileged'
-                            image 'nurhun/my_custom_jenkins_inboud_agent:v0.8'
+                            //args '--privileged'
+                            image 'nurhun/my_custom_jenkins_inboud_agent:v0.7'
                         }
                     }
                     //This environment block defines two variables which will be used later in the 'Deliver' stage.
                     environment {
-                        //VOLUME = '$(pwd)/sources:/src'
+                        VOLUME = '$(pwd)/sources:/src'
                         IMAGE = 'cdrx/pyinstaller-linux:python2'
                     }
             
@@ -81,7 +81,7 @@ pipeline {
                             //This sh step executes the pyinstaller command (in the PyInstaller container) on your simple Python application.
                             //This bundles your add2vals.py Python application into a single standalone executable file
                             //and outputs this file to the dist workspace directory (within the Jenkins home directory).
-                            sh "docker run --rm -v $HOME:/var/jenkins/caches -v /var/run/docker.sock:/var/run/docker.sock cdrx/pyinstaller-linux:python2 'pyinstaller -F add2vals.py'"
+                            sh "docker run --rm -v ${VOLUME} -v /var/run/docker.sock:/var/run/docker.sock ${IMAGE} 'pyinstaller -F add2vals.py'"
                         }
                     }
                     post {
