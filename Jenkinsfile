@@ -89,7 +89,7 @@ pipeline {
                             //and outputs this file to the dist workspace directory (within the Jenkins home directory).
                             //sh "docker run --rm -v $(pwd)/sources:/src ${IMAGE} 'pyinstaller -F add2vals.py'"
                             //sh "docker run --rm -v ${VOLUME} -v /var/run/docker.sock:/var/run/docker.sock ${IMAGE} 'pyinstaller -F /src/add2vals.py'"
-                            sh "docker run --rm -v ${VOLUME} busybox echo 'hello world' "
+                            sh "docker run --rm busybox echo 'hello world' "
                             sh "docker run --rm -v \$(pwd)/sources:/tmp busybox ls '/tmp' "
                         }
                     }
