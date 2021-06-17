@@ -91,14 +91,14 @@ pipeline {
                             sh "docker run --rm -v ${VOLUME} busybox 'ls /src' "
                         }
                     }
-                    post {
-                        success {
-                            //This archiveArtifacts step archives the standalone executable file and exposes this file
-                            //through the Jenkins interface.
-                            archiveArtifacts "${env.BUILD_ID}/sources/dist/add2vals"
-                            sh "docker run --rm  -v /var/run/docker.sock:/var/run/docker.sock ${IMAGE} 'rm -rf build dist'"
-                        }
-                    }
+//                     post {
+//                         success {
+//                             //This archiveArtifacts step archives the standalone executable file and exposes this file
+//                             //through the Jenkins interface.
+//                             archiveArtifacts "${env.BUILD_ID}/sources/dist/add2vals"
+//                             sh "docker run --rm  -v /var/run/docker.sock:/var/run/docker.sock ${IMAGE} 'rm -rf build dist'"
+//                         }
+//                     }
         }
     }
 }
