@@ -78,7 +78,7 @@ pipeline {
                         sh "ls \$(pwd)"
                         dir(path: env.BUILD_ID) {
                             unstash(name: 'compiled-results')
-                            sh "ls \$(pwd)
+                            sh "ls \$(pwd)"
                             //sh "ls sources/"
                             //sh "ls \$(pwd)/sources"
                             //sh "ls \${pwd}"
