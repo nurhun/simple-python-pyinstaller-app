@@ -75,10 +75,10 @@ pipeline {
                         //This unstash step restores the Python source code and compiled byte
                         //code files (with .pyc extension) from the previously saved stash. image]
                         //and runs this image as a separate container.
-                        sh "ls \$(pwd)"
-                        dir(path: env.BUILD_ID) {
+                        //sh "ls \$(pwd)"
+                        //dir(path: env.BUILD_ID) {
                             unstash(name: 'compiled-results')
-                            sh "ls \$(pwd)"
+                            //sh "ls \$(pwd)"
                             //sh "ls sources/"
                             //sh "ls \$(pwd)/sources"
                             //sh "ls \${pwd}"
@@ -91,7 +91,7 @@ pipeline {
                             //sh "docker run --rm -v ${VOLUME} -v /var/run/docker.sock:/var/run/docker.sock ${IMAGE} 'pyinstaller -F /src/add2vals.py'"
                             sh "docker run --rm -v ${VOLUME} busybox echo 'hello world' "
                             sh "docker run --rm -v \$(pwd)/sources:/tmp busybox ls '/tmp' "
-                        }
+                        //}
                     }
 //                     post {
 //                         success {
