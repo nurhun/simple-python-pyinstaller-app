@@ -51,16 +51,7 @@ pipeline {
             }
         }
         stage('Deliver') {
-                    agent {
-                        docker {
-                            label 'docker'
-                            //args '-v $HOME:/var/jenkins/caches'
-                            args '-v /var/run/docker.sock:/var/run/docker.sock'
-                            //args '-v "$(which docker)":"$(which docker)"'
-                            //args '--privileged'
-                            image 'nurhun/my_custom_jenkins_inboud_agent:v0.7'
-                        }
-                    }
+                    agent any
                     //This environment block defines two variables which will be used later in the 'Deliver' stage.
                     environment {
                         VOLUME = '\$(pwd)/sources:/src/'
