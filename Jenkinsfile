@@ -26,6 +26,7 @@ pipeline {
         stage('Test') {
             agent {
                 docker {
+                    label 'docker'
                     //args '-v $HOME:/var/jenkins/caches'
                     //This image parameter downloads the qnib:pytest Docker image and runs this image as a
                     //separate container. The pytest container becomes the agent that Jenkins uses to run the Test
@@ -67,7 +68,7 @@ pipeline {
                         //code files (with .pyc extension) from the previously saved stash. image]
                         //and runs this image as a separate container.
                         sh "ls \$(pwd)/sources"
-                        //dir(path: env.BUILD_ID) {
+                        dir(path: env.BUILD_ID) {
                             //unstash(name: 'compiled-results')
                             //sh "ls \$(pwd)"
                             //sh "ls sources/"
@@ -82,7 +83,7 @@ pipeline {
                             //sh "docker run --rm -v ${VOLUME} -v /var/run/docker.sock:/var/run/docker.sock ${IMAGE} 'pyinstaller -F /src/add2vals.py'"
                             sh "docker run --rm busybox echo 'hello world' "
                             sh "docker run --rm -v \$(pwd)/sources:/tmp busybox ls '/tmp' "
-                        //}
+                        }
                     }
 //                     post {
 //                         success {
