@@ -69,7 +69,7 @@ pipeline {
                         //and runs this image as a separate container.
                         sh "ls \$(pwd)/sources"
                         dir(path: env.BUILD_ID) {
-                            //unstash(name: 'compiled-results')
+                            unstash(name: 'compiled-results')
                             //sh "ls \$(pwd)"
                             //sh "ls sources/"
                             sh "ls \$(pwd)/sources"
